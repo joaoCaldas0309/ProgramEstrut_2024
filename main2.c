@@ -15,7 +15,7 @@ int main(){
         printf("3. Visualizar Residencia\n");
         printf("4. Calcular o consumo da residencia\n");
         printf("5. Sair\n");
-        printf("Digite sua opcao: ");
+        printf("Digite sua opceao: ");
 
         scanf("%d", &option);
 
@@ -27,15 +27,12 @@ int main(){
         case 2:
             listaResidencias();
             break;
-
         case 3:
             visualizarResidencia();
             break;
-
         case 4:
             calcular();
             break;
-        
         case 5:
             printf("Ate mais!");
             return 0;
@@ -45,7 +42,5 @@ int main(){
             return 0;
             break;
         }
-
     } while (option != 5);
-
 }

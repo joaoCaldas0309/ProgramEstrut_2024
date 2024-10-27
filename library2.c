@@ -7,6 +7,7 @@
 #define MAX_RESIDENCIA 100
 #define MAX_ELETRODOMESTICO 100
 #define MAX_NOME 100
+#define MAX_HORAS 24
 
 #define DIA 24
 
@@ -18,6 +19,7 @@ char residencia[MAX_RESIDENCIA][MAX_NOME]; // Creating the responsible vector to
 char eletrodomesticos[MAX_RESIDENCIA][MAX_ELETRODOMESTICO][MAX_NOME]; // Creating the responsible vector to set the household appliance
 
 float potenciaEletrodomesticos[MAX_RESIDENCIA][MAX_ELETRODOMESTICO];
+int horasEnergizadoDia[MAX_RESIDENCIA][MAX_HORAS];
 int eletrodomesticoResidencia[MAX_RESIDENCIA];
 int residencias = 0;
 
@@ -44,8 +46,11 @@ void registrandoResidencias(){
         printf("Digite o nome do eletrodomestico: ");
         scanf("%s", eletrodomesticos[residencias][eletrodomesticoResidencia[residencias]]);
 
-        printf("Digite a potencia de consumo deste eletrodomestico: ");
+        printf("Digite a potencia(kWh) de consumo deste eletrodomestico: ");
         scanf("%f", &potenciaEletrodomesticos[residencias][eletrodomesticoResidencia[residencias]]);
+
+        printf("Informe a quantidade de horas(h) estimada que o eletrodomestico eh utilizado por dia: ");
+        scanf("%d", &horasEnergizadoDia[residencias][eletrodomesticoResidencia[residencias]]);
         
         eletrodomesticoResidencia[residencias] ++;
 
@@ -61,7 +66,7 @@ void listaResidencias(){
         return;
     }
 
-    printf("\n Lista de residencias cadastradas: \n");
+    printf("\nLista de residencias cadastradas: \n");
     for (int i = 0; i < residencias; i++) {
         printf("%d. %s\n", i + 1, residencia[i]);
     }
@@ -76,7 +81,7 @@ float visualizarResidencia(){
     listaResidencias();
 
     int opcao;
-    printf("\n Digite o numero da residencia que deseja visualizar: \n");
+    printf("\nDigite o numero da residencia que deseja visualizar: ");
     scanf("%d", &opcao);
 
     if(opcao < 1 || opcao > residencias){
@@ -88,11 +93,11 @@ float visualizarResidencia(){
 
     float consumoTotalHora = 0;
 
-    printf("\n Residencia: %s\n", residencia[indiceResidencia]);
+    printf("\nResidencia: %s\n", residencia[indiceResidencia]);
     printf("Eletrodomesticos e suas potencia: \n");
 
     for (int i = 0; i < eletrodomesticoResidencia[indiceResidencia]; i++){
-        printf("- %s (Potencia %.2fW)\n", eletrodomesticos[indiceResidencia][i], potenciaEletrodomesticos[indiceResidencia][i]);
+        printf("- %s (Potencia: %.2fW) | %dh de uso por dia\n", eletrodomesticos[indiceResidencia][i], potenciaEletrodomesticos[indiceResidencia][i], horasEnergizadoDia[indiceResidencia][i]);
         consumoTotalHora += potenciaEletrodomesticos[indiceResidencia][i] / 1000;
     }
     return consumoTotalHora;
@@ -107,16 +112,16 @@ float calcular(){
 
     char opcao = 's';
 
-    do
-    {
+    while (opcao != 's' || opcao != 'S'){
         printf("Digite a quantidade de dias que deseja calcular o consumo de sua residencia: ");
         scanf("%d", &num);
 
         consumoTotalDia = consumoTotalHora * (num * DIA);
 
-        printf("\nEm %d dias, sua residencia tera um consumo de %fkWh\n", num, consumoTotalDia);
+        printf("\nEm %d dias, sua residencia tera um consumo de %.2fkWh\n", num, consumoTotalDia);
         printf("Deseja realizar um novo calculo de consumo? (s/n): ");
-    } while (opcao != 's' || opcao != 'S');
+        scanf("%s", &opcao);
+    } 
     
     return 0;
 }
