@@ -15,7 +15,7 @@ int main(){
         printf("3. Visualizar Residencia\n");
         printf("4. Calcular o consumo da residencia\n");
         printf("5. Sair\n");
-        printf("Digite sua opceao: ");
+        printf("Digite sua opcao: ");
 
         scanf("%d", &option);
 
