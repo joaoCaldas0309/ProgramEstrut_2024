@@ -56,6 +56,8 @@ int residencias = 0;
 
 void registrandoResidencias(){
 
+    system("cls");
+
     if(residencias >= MAX_RESIDENCIA){
         printf("Limite excedido. \n");
         return;
@@ -75,6 +77,8 @@ void registrandoResidencias(){
             printf("Limite excedido. \n");
             return;
         }
+        
+        system("cls");
 
         printf("---------------------------------------------------------------------------------------\n");
 
@@ -102,8 +106,10 @@ void registrandoResidencias(){
 }
 
 void listaResidencias(){
+    system("cls");
     if (residencias == 0){
         printf("Nenhuma residencia cadastrada. \n");
+        printf("---------------------------------------------------------------------------------------\n");
         return;
     }
 
@@ -138,7 +144,9 @@ float visualizarResidencia(){
     printf("Eletrodomesticos e suas potencia: \n");
 
     for (int i = 0; i < eletrodomesticoResidencia[indiceResidencia]; i++){
+        printf("---------------------------------------------------------------------------------------\n");
         printf("- %s (Potencia: %.2fkWh) | %dh de uso por dia\n", eletrodomesticos[indiceResidencia][i], potenciaEletrodomesticos[indiceResidencia][i], horasEnergizadoDia[indiceResidencia][i]);
+        printf("---------------------------------------------------------------------------------------\n");
         consumoTotalHora += potenciaEletrodomesticos[indiceResidencia][i] * horasEnergizadoDia[indiceResidencia][i];
         //printf("%f", consumoTotalHora);
     }
