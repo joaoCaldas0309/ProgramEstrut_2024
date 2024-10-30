@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Setting maximous values input
+// Definindo os valores de entrada máximo de cada vetor
 #define MAX_RESIDENCIA 100
 #define MAX_ELETRODOMESTICO 100
 #define MAX_NOME 100
 #define MAX_HORAS 24
 
-//Brazilian States
-//Região Norte
+// Preço médio do kWh de cada estado
+// Região Norte
 #define AC 0.733   // Acre
 #define AM 0.820   // Amazonas
 #define AP 0.722   // Amapá
@@ -17,7 +17,7 @@
 #define RO 0.657   // Rondônia
 #define RR 0.657   // Roraima
 #define TO 0.762   // Tocantins
-//Região Nordeste
+// Região Nordeste
 #define AL 0.750   // Alagoas
 #define BA 0.760   // Bahia
 #define CE 0.709   // Ceará
@@ -27,33 +27,34 @@
 #define PI 0.743   // Piauí
 #define RN 0.662   // Rio Grande do Norte
 #define SE 0.646   // Sergipe
-//Região Centro Oeste
+// Região Centro Oeste
 #define DF 0.740   // Distrito Federal
 #define GO 0.750   // Goiás
 #define MT 0.795   // Mato Grosso
 #define MS 0.790   // Mato Grosso do Sul
-//Região Sudeste
+// Região Sudeste
 #define ES 0.730   // Espírito Santo
 #define MG 0.810   // Minas Gerais
 #define RJ 0.780   // Rio de Janeiro
 #define SP 0.740   // São Paulo
-//Região Sul
+// Região Sul
 #define PR 0.700   // Paraná
 #define RS 0.780   // Rio Grande do Sul
 #define SC 0.720   // Santa Catarina
 
 #define OPCAO_SIM 's'
-#define OPCAO_NAO 'n'
 
-// Vector to store the datas
-char residencia[MAX_RESIDENCIA][MAX_NOME]; // Creating the responsible vector to set the residences
-char eletrodomesticos[MAX_RESIDENCIA][MAX_ELETRODOMESTICO][MAX_NOME]; // Creating the responsible vector to set the household appliance
+// Vetores para armazenar os dados
+char residencia[MAX_RESIDENCIA][MAX_NOME]; // Vetor resposável pela criação de cada residencia
+char eletrodomesticos[MAX_RESIDENCIA][MAX_ELETRODOMESTICO][MAX_NOME]; // Vetor responsável pelo armazenamento de cada eletrodoméstico
 
-float potenciaEletrodomesticos[MAX_RESIDENCIA][MAX_ELETRODOMESTICO];
-int horasEnergizadoDia[MAX_RESIDENCIA][MAX_HORAS];
-int eletrodomesticoResidencia[MAX_RESIDENCIA];
+float potenciaEletrodomesticos[MAX_RESIDENCIA][MAX_ELETRODOMESTICO]; // Vetor resposável pelo armazenamento das potencias de cada eletrodoméstico
+int horasEnergizadoDia[MAX_RESIDENCIA][MAX_HORAS]; // Vetor responsável pelo armazenamento da quantidade de horas do uso de cada eletrodoméstico
+int eletrodomesticoResidencia[MAX_RESIDENCIA]; // Vetor responsável pelo armazenamento de cada eletrodoméstico por residência
 int residencias = 0;
 
+//------------------------------------------------------------------------------------------------------------------//
+// Função responsável pela criação das residências e pelo armazenamento de cada eletrodoméstico na residência criada
 void registrandoResidencias(){
 
     system("cls");
@@ -70,13 +71,12 @@ void registrandoResidencias(){
     eletrodomesticoResidencia[residencias] = 0;
 
     char opcao = OPCAO_SIM;
-    while(opcao == 's' || opcao == 'S'){
-        
+
+    while(opcao == 's' || opcao == 'S'){    
         if(eletrodomesticoResidencia[residencias] >= MAX_ELETRODOMESTICO){
             printf("Limite excedido. \n");
             return;
         }
-
 
         printf("Digite o nome do eletrodomestico: ");
         scanf("%s", eletrodomesticos[residencias][eletrodomesticoResidencia[residencias]]);
@@ -109,7 +109,10 @@ void registrandoResidencias(){
     }
     residencias ++;
 }
+//------------------------------------------------------------------------------------------------------------------//
 
+//------------------------------------------------------------------------------------------------------------------//
+// Função responsável por exibir todas as residências criadas
 void listaResidencias(){
     system("cls");
     if (residencias == 0){
@@ -123,7 +126,10 @@ void listaResidencias(){
         printf("%d. %s\n", i + 1, residencia[i]);
     }
 }
+//------------------------------------------------------------------------------------------------------------------//
 
+//------------------------------------------------------------------------------------------------------------------//
+// Função responsável por exibir e dar a opção de selecionar a residência criada para verificação de eletrodomésticos criados
 float visualizarResidencia(){
     if(residencias == 0){
         printf("Nenhuma residencia cadastrada. \n");
@@ -154,11 +160,13 @@ float visualizarResidencia(){
         printf("- %s (Potencia: %.2fkWh) | %dh de uso por dia\n", eletrodomesticos[indiceResidencia][i], potenciaEletrodomesticos[indiceResidencia][i], horasEnergizadoDia[indiceResidencia][i]);
         printf("---------------------------------------------------------------------------------------\n");
         consumoTotalHora += potenciaEletrodomesticos[indiceResidencia][i] * horasEnergizadoDia[indiceResidencia][i];
-        //printf("%f", consumoTotalHora);
     }
     return consumoTotalHora;
 }
+//------------------------------------------------------------------------------------------------------------------//
 
+//------------------------------------------------------------------------------------------------------------------//
+// Função responsável por executar a conversão de valores de Watts para kilowatts-hora
 float conversaoValores(){
 
     system("cls");
@@ -199,7 +207,11 @@ float conversaoValores(){
     }
     return result;
 }
+//------------------------------------------------------------------------------------------------------------------//
 
+//------------------------------------------------------------------------------------------------------------------//
+// Função responsável pela verificação da existência e retorno de cada valor por estado definido.
+// Usuário entra com um valor, compara a string de entrada com a string na condição if e retorna o valor de kWh(valores #define no início do programa) dependendo da entrada. 
 double valorEstado(char* opcao){
     if (strcmp(opcao, "AC") == 0) return AC; // Acre
     if (strcmp(opcao, "AM") == 0) return AM; // Amazonas
@@ -230,7 +242,10 @@ double valorEstado(char* opcao){
     if (strcmp(opcao, "SC") == 0) return SC; // Santa Catarina
     return 0.0;
 }
+//------------------------------------------------------------------------------------------------------------------//
 
+//------------------------------------------------------------------------------------------------------------------//
+// Função responsável por efetuar o cálculo de consumos por residência e valor($) estimado da conta de luz, dependendo da quantidade de dias que o usuário enviar de entrada.
 float calcular(){
 
     if(residencias == 0){
@@ -271,4 +286,3 @@ float calcular(){
     } 
     return 0;
 }
-

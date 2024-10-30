@@ -6,21 +6,21 @@
 
 int main(){
 
-    int option;
+    int opcao;
 
     do{
         printf("\n");
-        printf("1. Cadastrar nova residencia\n");
+        printf("1. Cadastre sua Residencia\n");
         printf("2. Residencias Cadastradas\n");
         printf("3. Visualizar Residencia\n");
-        printf("4. Calcular o consumo da residencia\n");
+        printf("4. Calculo de Consumo\n");
         printf("5. Conversor de Valores\n");
         printf("6. Sair\n");
         printf("Digite sua opcao: ");
 
-        scanf("%d", &option);
+        scanf("%d", &opcao);
 
-        switch (option)
+        switch (opcao)
         {
         case 1:
             registrandoResidencias();
@@ -45,5 +45,5 @@ int main(){
             return 0;
             break;
         }
-    } while (option != 6);
+    } while (opcao != 6);
 }
