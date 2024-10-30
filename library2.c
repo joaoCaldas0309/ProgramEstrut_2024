@@ -128,6 +128,7 @@ float visualizarResidencia(){
     listaResidencias();
 
     int opcao;
+    
     printf("\nDigite o numero da residencia que deseja visualizar: ");
     scanf("%d", &opcao);
 
@@ -151,6 +152,43 @@ float visualizarResidencia(){
         //printf("%f", consumoTotalHora);
     }
     return consumoTotalHora;
+}
+
+float conversaoValores(){
+
+    float num;
+    float result;
+
+    int opcao;
+    
+    printf("\nBem-vindo(a) ao Conversao de Valores!\n");
+    
+    while (opcao != 2){
+        printf("\n1. De W para kWh\n");
+        printf("2. Voltar ao menu principal\n");
+        printf("Digite a sua opcao: ");
+        scanf("%d", &opcao);
+
+        switch (opcao)
+        {
+        case 1:
+            system("cls");
+            printf("Digite o valor (W) que deseja converter em kWh: ");
+            scanf("%f", &num);
+
+            result = (num * 1) / 1000;
+
+            printf("O valor %.2fW equivale a %.3fkWh\n", num, result);
+            break;
+
+        case 2:
+            printf("Retornando..\n");
+            break;
+        default:
+            break;
+        }
+    }
+    return result;
 }
 
 double valorEstado(char* opcao){
@@ -196,9 +234,9 @@ float calcular(){
     float consumoTotalHora = visualizarResidencia();
     float consumoTotalDia = 0;
 
-    char opcao = 's';
+    char opcao = OPCAO_SIM;
 
-    while (opcao != 's' || opcao != 'S'){
+    while (opcao == 's' || opcao == 'S'){
         printf("Digite a quantidade de dias que deseja calcular o consumo de sua residencia: ");
         scanf("%d", &num);
 
