@@ -1,4 +1,4 @@
-#include "library2.c"
+#include "library.c"
 
 void registrandoResidencias();
 void listaResidencias();

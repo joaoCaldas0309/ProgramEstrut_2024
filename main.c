@@ -1,4 +1,4 @@
-#include "library2.h"
+#include "library.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,8 +38,7 @@ int main(){
             conversaoValores();
             break;
         case 6:
-            printf("Ate mais!");
-            return 0;
+            printf("Programa finalizado. Ate mais!\n");
             break;
         default:
             printf("Opcao invalida.");

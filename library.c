@@ -63,10 +63,9 @@ void registrandoResidencias(){
         return;
     }
 
-    printf("---------------------------------------------------------------------------------------\n");
-
     printf("Digite o nome de sua residencia: ");
     scanf("%s", residencia[residencias]);
+    printf("---------------------------------------------------------------------------------------\n");
 
     eletrodomesticoResidencia[residencias] = 0;
 
@@ -77,10 +76,7 @@ void registrandoResidencias(){
             printf("Limite excedido. \n");
             return;
         }
-        
-        system("cls");
 
-        printf("---------------------------------------------------------------------------------------\n");
 
         printf("Digite o nome do eletrodomestico: ");
         scanf("%s", eletrodomesticos[residencias][eletrodomesticoResidencia[residencias]]);
@@ -94,6 +90,13 @@ void registrandoResidencias(){
 
         printf("Informe a quantidade de horas(h) estimada que o eletrodomestico eh utilizado por dia: ");
         scanf("%d", &horasEnergizadoDia[residencias][eletrodomesticoResidencia[residencias]]);
+
+        float horasFormatadas = horasEnergizadoDia[residencias][eletrodomesticoResidencia[residencias]];
+
+        if (horasFormatadas > 24){
+            printf("Valor invalido. Informe a quantidade de horas dentro de um dia (24h): ");
+            scanf("%d", &horasEnergizadoDia[residencias][eletrodomesticoResidencia[residencias]]);
+        }
         
         printf("---------------------------------------------------------------------------------------\n");
 
@@ -101,6 +104,8 @@ void registrandoResidencias(){
 
         printf("Deseja adicionar outro eletrodomestico? (s/n): ");
         scanf("%s", &opcao);
+
+        system("cls");
     }
     residencias ++;
 }
@@ -156,18 +161,22 @@ float visualizarResidencia(){
 
 float conversaoValores(){
 
+    system("cls");
+
     float num;
     float result;
 
     int opcao;
     
-    printf("\nBem-vindo(a) ao Conversao de Valores!\n");
+    printf("\nBem-vindo(a) ao Conversor de Valores!\n");
     
     while (opcao != 2){
         printf("\n1. De W para kWh\n");
         printf("2. Voltar ao menu principal\n");
         printf("Digite a sua opcao: ");
         scanf("%d", &opcao);
+
+        system("cls");
 
         switch (opcao)
         {
@@ -252,7 +261,7 @@ float calcular(){
         double valor = valorEstado(estado);
 
         if (valor != 0.0) {
-            printf("Valor do em media do kWh para o estado %s: R$ %.3f | Valor estimado da conta de luz mensal: R$%f\n", estado, valor, valor * consumoTotalDia);
+            printf("Valor em media do kWh para o estado %s e de: R$ %.3f | Valor estimado da conta de luz mensal: R$%.2f\n", estado, valor, valor * consumoTotalDia);
         } else {
             printf("Estado não encontrado.\n");
         }
